@@ -1,33 +1,34 @@
 
 import express from 'express';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
+import { Listing } from './schema.js';
+
+import connectWithMongoDB from './db/connection1.js';
 
 const app = express();
 dotenv.config();
 
-
+app.use(cors());
 
 const PORT = process.env.PORT || 5000;
-const db_url= process.env.DB_URL;
 
 
-
-async function main(){
-    const db = await mongoose.connect(db_url)
-    console.log(db.connection.name)
-}
-
-main()
-    .then(()=> console.log("DB Connected"))
-    .catch((err) => console.log(err))
+connectWithMongoDB();
 
 
 
 
-app.get("/" , (req , res)=> {
-    res.send("Hello")
+app.get("/" , async(req , res)=> {
+    try{
+        const data = await Listing.find({});
+        res.send(data);
+    }
+    catch(err){
+        console.lohg(err);
+    }
+    
 })
 
 app.listen(PORT , ()=> console.log(`Listening on PORT ${PORT}`))
