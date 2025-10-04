@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model User{
+  id        Int            @id @default(autoincrement())
+  username  String         @unique
+  password  String
+  listings  Listing[]   
+  reviews   Review[]     
+}
+
+
+model Listing{
+  id          Int           @id @default(autoincrement())
+  title       String
+  description String
+  imageUrl    String        @default("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1vdW50YWlufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60")
+  price       Int
+  location    String
+  country     String
+  userId      Int
+  tag         String
+  reviews     Review[]
+  user        User         @relation(fields: [userId] ,references: [id])
+}
+
+model Review{
+  id        Int   @id
+  rating    Int   @default(0)
+  message   String
+  userId    Int
+  listingId Int
+  user      User          @relation(fields: [userId] , references: [id])
+  listing   Listing        @relation(fields: [listingId] , references: [id])
+}
