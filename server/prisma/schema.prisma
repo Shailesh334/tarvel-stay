@@ -18,6 +18,7 @@ datasource db {
 model User{
   id        Int            @id @default(autoincrement())
   username  String         @unique
+  email     String?        @unique 
   password  String
   listings  Listing[]   
   reviews   Review[]     
@@ -35,7 +36,7 @@ model Listing{
   userId      Int
   tag         String
   reviews     Review[]
-  user        User         @relation(fields: [userId] ,references: [id])
+  user        User         @relation(fields: [userId] ,references: [id] , onDelete: Cascade)
 }
 
 model Review{
@@ -44,6 +45,6 @@ model Review{
   message   String
   userId    Int
   listingId Int
-  user      User          @relation(fields: [userId] , references: [id])
-  listing   Listing        @relation(fields: [listingId] , references: [id])
+  user      User          @relation(fields: [userId] , references: [id] , onDelete: Cascade)
+  listing   Listing        @relation(fields: [listingId] , references: [id] , onDelete: Cascade)
 }

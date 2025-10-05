@@ -52,15 +52,29 @@ const listingsToInsert  = initData.data.map((listing)=>({
 }))
 
 const initialize_data = async()=>{
-    const data = await prisma.listing.createMany({
+    try{
+         const data = await prisma.listing.createMany({
         data : listingsToInsert,
+        
     })
     console.log(data);
+    }
+    catch(err){
+        console.log(err);
+    }
+   
 }
 
-// initialize_data();
+initialize_data();
 
 
-
+// await prisma.user.create({
+//     data : {
+//         username : "shailesh",
+//         password: "69",
+//         email : "shailesh@gmail.com",
+//         id : 1
+//     }
+// });
 
 app.listen(5001 , console.log(`Listening on Port 5001`));
