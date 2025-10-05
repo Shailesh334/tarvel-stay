@@ -21,7 +21,7 @@ router.post('/register' , async(req , res)=>{
             }
         
         })
-        const token = jwt.sign({id : user.id} , process.env.JWT_SECRET_KEY , {expiresIn: '1h'});
+        const token = jwt.sign({id : user.id} , process.env.JWT_SECRET_KEY , {expiresIn: '24h'});
         res.send({token});
     }
     catch(err){
@@ -48,7 +48,7 @@ router.get("/login" , async(req , res)=>{
     if(!isPasswordValid)return res.status(401).send({ message: "Invalid password" });
 
     // Then we have a successfull authentication
-    const token = jwt.sign({id : user.id} , process.env.JWT_SECRET_KEY , {expiresIn: '1h'});
+    const token = jwt.sign({id : user.id} , process.env.JWT_SECRET_KEY , {expiresIn: '24h'});
     res.send({token});
     
 })

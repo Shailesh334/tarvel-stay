@@ -24,10 +24,10 @@ router.post("/" , authMiddleware  , addListing);
 
 
 // Edit a listing
-router.patch("/:id" ,authMiddleware , ownerMiddleware , editListing)
+router.patch("/:listingId" ,authMiddleware , ownerMiddleware , editListing)
 
 // delete a listing
-router.delete("/:id" ,authMiddleware , ownerMiddleware , deleteListing)
+router.delete("/:listingId" ,authMiddleware , ownerMiddleware , deleteListing)
 
 
 

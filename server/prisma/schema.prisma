@@ -40,7 +40,7 @@ model Listing{
 }
 
 model Review{
-  id        Int   @id
+  id        Int   @id @default(autoincrement())
   rating    Int   @default(0)
   message   String
   userId    Int

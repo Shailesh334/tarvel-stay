@@ -2,11 +2,11 @@ import prisma from "../prismaClient.js";
 
 
 const ownerMiddleware = async(req , res , next) =>{
-    const { id } = req.params;
+    const { listingId } = req.params;
 
     const listing = await prisma.listing.findUnique({
         where : {
-            id : parseInt(id)
+            id : parseInt(listingId)
         }
     })
 
