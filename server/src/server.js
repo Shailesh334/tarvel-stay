@@ -21,7 +21,7 @@ const PORT = process.env.PORT || 5000;
 
 // connectWithMongoDB();
 app.use("/auth" , authRoutes);
-app.use("/" ,authMiddleware, listingRoutes);
+app.use("/" , listingRoutes);
 
 
 
