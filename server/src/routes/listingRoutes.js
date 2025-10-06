@@ -10,6 +10,7 @@ import deleteListing from '../controllers/listings/deleteListing.js';
 
 import authMiddleware from '../middlewares/authMiddleware.js';
 import ownerMiddleware from '../middlewares/ownerMiddleware.js';
+import singleListing from '../controllers/listings/singleListing.js';
 
 
 
@@ -18,6 +19,8 @@ const router = express.Router();
 // Get all listings
 router.get('/' , getAllListings);
 
+// Get a single listing
+router.get("/:listingId" , singleListing);
 
 // Add new listing
 router.post("/" , authMiddleware  , addListing);

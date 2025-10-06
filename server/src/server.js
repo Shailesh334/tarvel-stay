@@ -8,7 +8,7 @@ import authRoutes from './routes/authRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
 
 import connectWithMongoDB from './db/connection1.js';
-import authMiddleware from './middlewares/authMiddleware.js';
+
 
 const app = express();
 dotenv.config();
