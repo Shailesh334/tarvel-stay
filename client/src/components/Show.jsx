@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react'
+
+import { useEffect } from 'react';
 import ListingCard from './ListingCard';
+import { useState } from 'react';
 
 const Show = () => {
 
@@ -15,16 +17,15 @@ const Show = () => {
         getData()
     }, []);
 
-
     return (
-        <div>
+        
             <div className="main-container">
                 {
                     listings.map((listing) => ( <ListingCard info={listing}/>))
                 }
                     
             </div>
-        </div>
+    
     )
 }
 

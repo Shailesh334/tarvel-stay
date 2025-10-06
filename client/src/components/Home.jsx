@@ -3,6 +3,9 @@ import Header from './Header'
 import Show from './Show'
 import '../index.css'
 const Home = () => {
+
+
+
     return (
         <div>
             <Show />

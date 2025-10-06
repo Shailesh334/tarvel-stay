@@ -6,6 +6,7 @@ import cors from 'cors';
 import listingRoutes from './routes/listingRoutes.js'
 import authRoutes from './routes/authRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 import connectWithMongoDB from './db/connection1.js';
 
@@ -23,6 +24,7 @@ const PORT = process.env.PORT || 5000;
 app.use("/auth" , authRoutes);
 app.use("/:listingId/reviews" , reviewRoutes)
 app.use("/" , listingRoutes);
+app.use("/user/:userId" , userRoutes);
 
 
 

@@ -77,30 +77,152 @@
 .nav a:hover {
   color: #00bcd4; /* teal accent */
 }
-
-.main-container{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 40px;
-}
-.card {
-    padding: 10px;
-}
-.card img{
-    height: 300px;
-    width: 400px;
-    border-radius: 10px;
+/* Main container for listing cards */
+.main-container {
+  max-width: 1760px;
+  margin: 0 auto;
+  padding: 2rem 5rem;
+  background: #f7f7f7;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  padding-bottom: 4rem;
 }
 
-h3{
-    padding: 5px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-.card:hover{
-    cursor: pointer;
+/* Responsive adjustments */
+@media (max-width: 1440px) {
+  .main-container {
+    padding: 2rem 3rem;
+    gap: 28px;
+  }
 }
 
+@media (max-width: 1024px) {
+  .main-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 1.5rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .main-container {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 16px;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar but keep functionality (optional) */
+.main-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.main-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.main-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+ .card {
+          background: white;
+          
+          border-radius: 12px;
+          overflow: hidden;
+          cursor: pointer;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          position: relative;
+        }
+
+        .card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-image-container {
+          position: relative;
+          width: 100%;
+          height: 280px;
+          overflow: hidden;
+        }
+
+        .card-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-image {
+          transform: scale(1.05);
+        }
+
+
+
+        .card-content {
+          padding: 12px;
+        }
+
+        .card-location {
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: #222;
+          margin-bottom: 4px;
+        }
+
+        .card-description {
+          font-size: 0.875rem;
+          color: #717171;
+          margin-bottom: 4px;
+        }
+
+        .card-rating {
+          font-size: 0.875rem;
+          color: #717171;
+          margin-bottom: 8px;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+
+        .star {
+          color: #222;
+        }
+
+        .card-price {
+          font-size: 0.9rem;
+          color: #222;
+        }
+
+        .price-amount {
+          font-weight: 600;
+        }
+
+        .price-period {
+          font-weight: 400;
+        }
 
 .container {
            max-width: 600px;
@@ -227,4 +349,158 @@ h3{
         .toggle-btn:hover {
           background: #222;
           color: white;
+        }
+
+
+
+
+
+
+          .detail-container {
+          max-width: 900px;
+          margin: 2rem auto;
+          padding: 0 2rem;
+        }
+
+        .listing-image {
+          width: 100%;
+          height: 450px;
+          object-fit: cover;
+          border-radius: 12px;
+          margin-bottom: 2rem;
+        }
+
+        .content-card {
+          background: white;
+          padding: 2rem;
+          border-radius: 12px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+          margin-bottom: 2rem;
+        }
+
+        .listing-title {
+          font-size: 2rem;
+          font-weight: 600;
+          color: #222;
+          margin-bottom: 1rem;
+        }
+
+        .info-row {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+          margin-bottom: 1rem;
+          flex-wrap: wrap;
+        }
+
+        .info-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 1rem;
+          color: #222;
+        }
+
+        .rating-star {
+          color: #FFD700;
+        }
+
+        .price {
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: #FF385C;
+          margin-bottom: 1.5rem;
+        }
+
+        .price-period {
+          font-size: 1rem;
+          color: #717171;
+          font-weight: 400;
+        }
+
+        .description {
+          font-size: 1rem;
+          line-height: 1.6;
+          color: #222;
+          margin-top: 1.5rem;
+          padding-top: 1.5rem;
+          border-top: 1px solid #ebebeb;
+        }
+
+        .reviews-section {
+          background: white;
+          padding: 2rem;
+          border-radius: 12px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .reviews-title {
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: #222;
+          margin-bottom: 1.5rem;
+        }
+
+        .review-card {
+          padding: 1.5rem 0;
+          border-bottom: 1px solid #ebebeb;
+        }
+
+        .review-card:last-child {
+          border-bottom: none;
+        }
+
+        .review-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.5rem;
+        }
+
+        .reviewer-name {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #222;
+        }
+
+        .review-date {
+          font-size: 0.875rem;
+          color: #717171;
+        }
+
+        .review-rating {
+          display: flex;
+          gap: 0.25rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .review-comment {
+          font-size: 0.9rem;
+          line-height: 1.5;
+          color: #222;
+        }
+
+        @media (max-width: 768px) {
+          .detail-container {
+            padding: 0 1rem;
+            margin: 1rem auto;
+          }
+
+          .listing-image {
+            height: 300px;
+            border-radius: 8px;
+          }
+
+          .content-card, .reviews-section {
+            padding: 1.5rem;
+            border-radius: 8px;
+          }
+
+          .listing-title {
+            font-size: 1.5rem;
+          }
+
+          .info-row {
+            gap: 1rem;
+          }
         }
