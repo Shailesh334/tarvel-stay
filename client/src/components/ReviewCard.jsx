@@ -23,18 +23,18 @@ const ReviewCard = ({review}) => {
     }, [])
 
   return (
-      <div className="review-card">
-                                        <div className="review-header">
-                                            <span className="reviewer-name">{reviewer.username}</span>
-                            
-                                        </div>
-                                        <div className="review-rating">
-                                            {[...Array(review.rating)].map((_, i) => (
-                                            <Star key={i} size={16} fill="#FFD700" color="#FFD700" />
-                                            ))}
-                                        </div>
-                                        <p className="review-comment">{review.message}</p>
-    </div>
+        <div className="review-card">
+            <div className="review-header">
+                    <span className="reviewer-name">{reviewer.username}</span>
+                    
+                    </div>
+                        <div className="review-rating">
+                                    {[...Array(review.rating)].map((_, i) => (
+                                    <Star key={i} size={16} fill="#FFD700" color="#FFD700" />
+                                    ))}
+                        </div>
+            <p className="review-comment">{review.message}</p>
+        </div>
   )
 }
 

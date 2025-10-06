@@ -17,8 +17,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/:listingId" element={<ListingSingle  />} />
           <Route path="/addlisting" element={<NewListing />} />
-          <Route path="/login" element={<SignUp isloggedIn={false}/>} />
-          <Route path="/signup" element={<SignUp isloggedIn={true}/>} />
+          <Route path="/login" element={<SignUp isloggedIn={true}/>} />
+          <Route path="/signup" element={<SignUp isloggedIn={false}/>} />
         </Routes>
     </>
   )

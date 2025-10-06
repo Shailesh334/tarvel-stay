@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 const ListingCard = ({info}) => {
 
     const navigate = useNavigate();
-    console.log(info)
     return (
             <div className="card" onClick={()=> navigate(`/${info.id}`)}>
                 <div className="card-image-container">

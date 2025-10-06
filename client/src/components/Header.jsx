@@ -1,15 +1,19 @@
 import React from "react";
-import { useState } from "react";
+
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 import './Header.css'
+import { useContext } from "react";
 
 const Header = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const toggleAuth = () => {
-        setIsLoggedIn(!isLoggedIn);
-    };
+
+
+    const { isAuthenticated ,  logout} = useContext(AuthContext);
+
+
+
     return (
             
         <header className="header">
@@ -23,22 +27,17 @@ const Header = () => {
 
                 <div className="nav-links">
                     <Link to="/addlisting" className="nav-link">Add Listing</Link>
-                    {!isLoggedIn ? (
+                    {!isAuthenticated ? (
                     <>
-                        <Link to="/signup">
-                            <button className="btn btn-signup">
-                            Sign up
-                            </button>
-                        </Link>
-
+                    
                         <Link to="/login">
                             <button className="btn btn-login" >
-                            Log in
+                                Sign In
                             </button>
                         </Link>
                     </>
                     ) : (
-                    <button className="btn btn-logout" onClick={toggleAuth}>
+                    <button className="btn btn-logout" onClick={logout}>
                         Log out
                     </button>
                     )}

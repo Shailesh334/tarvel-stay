@@ -1,13 +1,84 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import { useContext } from 'react';
 
 const SignUp = ({isloggedIn}) => {
     const [isLogin, setIsLogin] = useState(isloggedIn);
+    const { login } = useContext(AuthContext);
+
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
         email: '',
         password: ''
     });
 
+
+    const handleLogin = async()=>{
+       
+        try{
+            const data = await fetch(`http://localhost:5000/auth/login`, {
+                method:"POST",
+                headers :{
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify({
+                        email : formData.email ,
+                        password : formData.password
+                })
+
+            })
+            const response = await data.json();
+
+            if(response.token){
+                login(response.token)
+                alert("Logged In Successfully !")
+                navigate("/")
+            }
+            else{
+                alert(response.message)
+            }
+            
+  
+
+        }
+        catch(err){
+            console.log(err);
+        }
+
+    }
+
+    const handleSignUp = async()=>{
+        
+        try{
+            const data = await fetch(`http://localhost:5000/auth/register`, {
+                method:"POST",
+                headers :{
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify({
+                        username : formData.username,
+                        email : formData.email ,
+                        password : formData.password
+                })
+
+            })
+            const response = await data.json();
+
+             if(response.token){
+                login(response.token)
+                alert("Account created Successfully !")
+                navigate("/")
+            }
+            else{
+                alert(response.message)
+            }
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
     const handleChange = (e) => {
         setFormData({
         ...formData,
@@ -17,64 +88,70 @@ const SignUp = ({isloggedIn}) => {
 
     const handleSubmit = () => {
         console.log('Form submitted:', formData);
-        alert(isLogin ? 'Logged in successfully!' : 'Account created successfully!');
+        
+        if(formData.username === ""){
+            handleLogin();
+        }
+        else{
+            handleSignUp();
+        }
     };
     return (
             <div className="container">
-            <h1>{isLogin ? 'Log In' : 'Sign Up'}</h1>
+                <h1>{isLogin ? 'Log In' : 'Sign Up'}</h1>
 
-            <div>
-            {!isLogin && (
-                <div className="form-group">
-                <label htmlFor="username">Username</label>
-                <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    placeholder="Enter the username"
-                />
+                <div>
+                    {!isLogin && (
+                        <div className="form-group">
+                            <label htmlFor="username">Username</label>
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                value={formData.username}
+                                onChange={handleChange}
+                                placeholder="Enter the username"
+                            />
+                        </div>
+                    )}
+
+                    <div className="form-group">
+                        <label htmlFor="email">Email</label>
+                        <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="Enter the mail"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        placeholder="Enter the password"
+                        />
+                    </div>
+
+                    <button onClick={handleSubmit} className="submit-btn">
+                        Submit
+                    </button>
                 </div>
-            )}
 
-            <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Enter the mail"
-                />
-            </div>
-
-            <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Enter the password"
-                />
-            </div>
-
-            <button onClick={handleSubmit} className="submit-btn">
-                Submit
-            </button>
-            </div>
-
-            <div className="toggle-section">
-            <p className="toggle-text">
-                {isLogin ? "Don't have an account?" : 'Already have an account?'}
-            </p>
-            <button onClick={() => setIsLogin(!isLogin)} className="toggle-btn">
-                {isLogin ? 'Sign Up' : 'Log In'}
-            </button>
-            </div>
+                <div className="toggle-section">
+                    <p className="toggle-text">
+                        {isLogin ? "Don't have an account?" : 'Already have an account?'}
+                    </p>
+                    <button onClick={() => setIsLogin(!isLogin)} className="toggle-btn">
+                        {isLogin ? 'Sign Up' : 'Log In'}
+                    </button>
+                </div>
         </div>
     )
 }

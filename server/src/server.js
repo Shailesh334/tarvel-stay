@@ -21,11 +21,10 @@ const PORT = process.env.PORT || 5000;
 
 
 // connectWithMongoDB();
-app.use("/auth" , authRoutes);
-app.use("/:listingId/reviews" , reviewRoutes)
-app.use("/" , listingRoutes);
-app.use("/user/:userId" , userRoutes);
-
+app.use("/auth", authRoutes);
+app.use("/", listingRoutes);        
+app.use("/:listingId/reviews", reviewRoutes); 
+app.use("/user/:userId", userRoutes);
 
 
 

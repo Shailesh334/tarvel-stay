@@ -25,21 +25,21 @@ router.post('/register' , async(req , res)=>{
         res.send({token});
     }
     catch(err){
-        console.log(err);
+        res.json({message : err.message});
     }
 
 })
 
 
-router.get("/login" , async(req , res)=>{
-    const {username , password} = req.body;
+router.post("/login" , async(req , res)=>{
+    const {email , password} = req.body;
 
     const user = await prisma.user.findUnique({
         where : {
-            username : username
+            email : email
         }
     })
-
+    
       // if user doesnt exists return error
         if(!user)return res.status(404).send({message : "User not found"})
 

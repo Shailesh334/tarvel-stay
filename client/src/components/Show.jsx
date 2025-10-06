@@ -21,7 +21,7 @@ const Show = () => {
         
             <div className="main-container">
                 {
-                    listings.map((listing) => ( <ListingCard info={listing}/>))
+                    listings.map((listing) => ( <ListingCard key={listing.id} info={listing}/>))
                 }
                     
             </div>

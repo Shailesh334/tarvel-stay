@@ -1,4 +1,8 @@
 import React, { useState } from 'react'
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const NewListing = () => {
     const [formData, setFormData] = useState({
@@ -38,7 +42,17 @@ const NewListing = () => {
         console.log('Form submitted:', formData);
         alert('Listing created successfully!');
     };
+    
+    const { isAuthenticated} = useContext(AuthContext);
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        if (!isAuthenticated) {
+        navigate("/login"); // redirect if not logged in
+        }
+     }, [isAuthenticated, navigate]);   
+
+     if(!isAuthenticated)return null;
     return (
             <div className="container">
                 <h1>Add New Listing</h1>
