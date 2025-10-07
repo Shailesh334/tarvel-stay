@@ -21,12 +21,22 @@ const ListingSingle = () => {
     const navigate = useNavigate();
     
     const handleEdit = async () => {
-
-        navigate(`/edit/${listingId}`)
-        
+        navigate(`/edit/${listingId}`)   
     }
 
-
+    const handleDelete = async () => {
+        const token = localStorage.getItem("token");
+        const data = await fetch(`http://localhost:5000/${listingId}` , {
+            method: "DELETE",
+            headers : {
+                "Content-Type" :"application/json",
+                "Authorization": token
+            } 
+        })
+        const response = await data.json();
+        alert("Listing deleted successfully")
+        if(response)navigate(`/`);  
+    }
 
     const handleSubmit = async() => {
         if (rating === 0) {
@@ -75,7 +85,10 @@ const ListingSingle = () => {
         try{
             const data = await fetch(`http://localhost:5000/${listingId}`);
             const response = await data.json();
-            if(!response) return (<h1>No Such Listing</h1>)
+            if(!response){
+                alert("No Such listing")
+                navigate('/')
+            }
             setlisting(response);
         }catch(err){
             console.log(err);
@@ -122,7 +135,7 @@ const ListingSingle = () => {
             { owner.id == currUserId &&  <>
                 <div className="edit-dlt">
                     <button className="edit" onClick={handleEdit}>Edit</button>
-                    <button className="dlt">Delete</button>
+                    <button className="dlt" onClick={handleDelete}>Delete</button>
                 </div>
             </>  }
         
