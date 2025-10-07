@@ -504,3 +504,128 @@ html {
             gap: 1rem;
           }
         }
+
+        /* review input */
+
+         .review-container {
+          max-width: 1000px;
+          margin: 3rem auto;
+          padding: 3rem;
+          background: white;
+          border-radius: 12px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .review-title {
+          font-size: 2rem;
+          font-weight: 600;
+          color: #222;
+          margin-bottom: 2rem;
+        }
+
+        .rating-section {
+          margin-bottom: 2rem;
+        }
+
+        .section-label {
+          font-size: 1.25rem;
+          font-weight: 500;
+          color: #222;
+          margin-bottom: 1rem;
+        }
+
+        .stars-container {
+          display: flex;
+          gap: 0.5rem;
+        }
+
+        .star-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0;
+          transition: transform 0.2s ease;
+        }
+
+        .star-btn:hover {
+          transform: scale(1.1);
+        }
+
+        .star-icon {
+          width: 40px;
+          height: 40px;
+          color: #d1d5db;
+          transition: color 0.2s ease;
+        }
+
+        .star-icon.filled {
+          color: #9ca3af;
+          fill: #9ca3af;
+        }
+
+        .star-icon.hovered {
+          color: #6b7280;
+          fill: #6b7280;
+        }
+
+        .comment-section {
+          margin-bottom: 2rem;
+        }
+
+        .comment-textarea {
+          width: 100%;
+          min-height: 150px;
+          padding: 1rem;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          font-size: 1rem;
+          font-family: inherit;
+          resize: vertical;
+          transition: border-color 0.2s ease;
+        }
+
+        .comment-textarea:focus {
+          outline: none;
+          border-color: #222;
+        }
+
+        .comment-textarea::placeholder {
+          color: #999;
+        }
+
+        .submit-btn {
+          padding: 0.75rem 2rem;
+          background: white;
+          border: 2px solid #16a34a;
+          border-radius: 8px;
+          color: #16a34a;
+          font-size: 1rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .submit-btn:hover {
+          background: #16a34a;
+          color: white;
+        }
+
+        .submit-btn:active {
+          transform: scale(0.98);
+        }
+
+        @media (max-width: 768px) {
+          .review-container {
+            padding: 2rem 1.5rem;
+            margin: 2rem 1rem;
+          }
+
+          .review-title {
+            font-size: 1.5rem;
+          }
+
+          .star-icon {
+            width: 32px;
+            height: 32px;
+          }
+        }
