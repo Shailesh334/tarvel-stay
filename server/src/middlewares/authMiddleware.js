@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 const authMiddleware = (req , res , next)=>{
     const token = req.headers['authorization'];
-
+    console.log("token in authMiddleWare" , token);
     if(!token)res.status(401).json({message : "No Token Provided"});
 
     try{

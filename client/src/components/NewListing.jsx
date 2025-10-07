@@ -11,7 +11,8 @@ const NewListing = () => {
         price: '',
         country: '',
         location: '',
-        category: ''
+        category: '',
+        imageUrl : '',
     });
 
     const categories = [
@@ -38,9 +39,29 @@ const NewListing = () => {
 
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async() => {
         console.log('Form submitted:', formData);
         alert('Listing created successfully!');
+        const token = localStorage.getItem("token");
+        const data = await fetch("http://localhost:5000/" , {
+            method: "POST",
+            headers : {
+                "Content-Type" :"application/json",
+                "Authorization": token
+            },
+            body:JSON.stringify({
+                title : formData.title,
+                description : formData.description,
+                imageUrl : formData.imageUrl || "https://plus.unsplash.com/premium_photo-1759139844630-6450c6c01d73?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                country : formData.country,
+                price : parseInt(formData.price),
+                location : formData.location,
+                tag : formData.category,
+            })
+        })
+        const response = await data.json();
+        if(response)navigate('/');
+        
     };
     
     const { isAuthenticated} = useContext(AuthContext);
@@ -68,6 +89,7 @@ const NewListing = () => {
                     value={formData.title}
                     onChange={handleChange}
                     placeholder="e.g., Cozy Beach House"
+                    required
                     />
                 </div>
 
@@ -79,6 +101,20 @@ const NewListing = () => {
                     value={formData.description}
                     onChange={handleChange}
                     placeholder="Describe your listing..."
+                    required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label >Image Url</label>
+                    <input
+                    type="text"
+                    id="imageUrl"
+                    name="imageUrl"
+                    value={formData.imageUrl}
+                    onChange={handleChange}
+                    placeholder="https://images.unsplash.com/photo-1464822759023-..."
+                    required
                     />
                 </div>
 
@@ -94,6 +130,7 @@ const NewListing = () => {
                         onChange={handleChange}
                         placeholder="100"
                         min="0"
+                        required
                     />
                     </div>
                 </div>
@@ -107,6 +144,7 @@ const NewListing = () => {
                     value={formData.country}
                     onChange={handleChange}
                     placeholder="e.g., United States"
+                    required
                     />
                 </div>
 
@@ -119,6 +157,7 @@ const NewListing = () => {
                     value={formData.location}
                     onChange={handleChange}
                     placeholder="e.g., Miami, Florida"
+                    required
                     />
                 </div>
 
@@ -129,6 +168,7 @@ const NewListing = () => {
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
+                    required
                     >
                     <option value="">Select a category</option>
                     {categories.map((cat) => (

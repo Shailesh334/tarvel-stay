@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const ListingCard = ({info}) => {
-
+    console.log("info" , info);
     const navigate = useNavigate();
     return (
             <div className="card" onClick={()=> navigate(`/${info.id}`)}>

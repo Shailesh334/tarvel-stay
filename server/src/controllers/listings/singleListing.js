@@ -13,5 +13,4 @@ const singleListing = async(req , res)=>{
 }
 
 
-
 export default singleListing;
