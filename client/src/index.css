@@ -796,3 +796,31 @@ html {
         .edit-dlt .dlt:active {
           transform: scale(0.98);
         }
+
+        /* Delete button container */
+.dlt-btn {
+  margin-top: 0.75rem;
+}
+
+/* Delete button styling */
+.dlt-btn button {
+  padding: 0.5rem 1rem;
+  background: white;
+  border: 1px solid #dc2626;
+  border-radius: 6px;
+  color: #dc2626;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dlt-btn button:hover {
+  background: #dc2626;
+  color: white;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
+}
+
+.dlt-btn button:active {
+  transform: scale(0.98);
+}

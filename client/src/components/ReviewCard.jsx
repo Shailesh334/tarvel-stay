@@ -2,9 +2,13 @@ import React from 'react'
 import { MapPin, Star } from 'lucide-react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-const ReviewCard = ({review}) => {
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+const ReviewCard = ({review ,listing ,  getReviews}) => {
 
   const [reviewer , setReviewer] = useState('');
+
+  const { currUserId} = useContext(AuthContext);
 
   const getReviewer = async ()=>{
         try{
@@ -15,6 +19,23 @@ const ReviewCard = ({review}) => {
 
         }catch(err){
             console.log(err)
+        }
+    }
+
+
+    const handleDelete = async () =>{
+        const token = localStorage.getItem("token");
+        const data = await fetch(`http://localhost:5000/${listing.id}/reviews/${review.id}` , {
+            method: "DELETE",
+            headers : {
+                "Content-Type" :"application/json",
+                "Authorization": token
+            } 
+        })
+        const response = await data.json();
+        alert("Review deleted successfully")
+        if(response){
+            getReviews();
         }
     }
 
@@ -36,6 +57,15 @@ const ReviewCard = ({review}) => {
             </div>
 
             <p className="review-comment">{review.message}</p>
+
+            {
+                currUserId == review.userId && (
+                    <div className="dlt-btn" onClick={handleDelete}>
+                        <button>Delete</button>
+                    </div>
+                )
+            }
+        
         </div>
   )
 }

@@ -62,12 +62,15 @@ const ListingSingle = () => {
                     message : comment
                 })
             })
-            const response = await data.json();
-            console.log(response);
-            if(response.message){
-                alert("User must be Logged in to add a review");
-                navigate('/login')
+            if (data.status === 401) {
+                alert("You must be logged in to perform this action");
+                navigate("/login");
+                return; // stop here
             }
+            const response = await data.json();
+        
+            console.log("response" , response);
+        
             if(response){
                 getReviews();
             }
@@ -162,51 +165,55 @@ const ListingSingle = () => {
                 <h2 className="reviews-title">Reviews</h2>
 
                             {reviews.map((review, index) => (
-                                <ReviewCard key={index} review={review}/>
+                                <ReviewCard key={index} review={review} listing={listing} getReviews={getReviews}/>
                             ))}
 
+                { owner.id != currUserId && (
                     <div className="review-container">
-        <h1 className="review-title">Leave a review</h1>
+                        
+                    <h1 className="review-title">Leave a review</h1>
 
-            <div className="rating-section">
-            <label className="section-label">Rating</label>
-            <div className="stars-container">
-                {[1, 2, 3, 4, 5].map((star) => (
-                <button
-                    key={star}
-                    className="star-btn"
-                    onClick={() => setRating(star)}
-                    onMouseEnter={() => setHoveredRating(star)}
-                    onMouseLeave={() => setHoveredRating(0)}
-                >
-                    <Star
-                    className={`star-icon ${
-                        star <= (hoveredRating || rating)
-                        ? hoveredRating >= star
-                            ? 'hovered'
-                            : 'filled'
-                        : ''
-                    }`}
-                    />
-                </button>
-                ))}
-            </div>
-            </div>
+                        <div className="rating-section">
+                        <label className="section-label">Rating</label>
+                        <div className="stars-container">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                            <button
+                                key={star}
+                                className="star-btn"
+                                onClick={() => setRating(star)}
+                                onMouseEnter={() => setHoveredRating(star)}
+                                onMouseLeave={() => setHoveredRating(0)}
+                            >
+                                <Star
+                                className={`star-icon ${
+                                    star <= (hoveredRating || rating)
+                                    ? hoveredRating >= star
+                                        ? 'hovered'
+                                        : 'filled'
+                                    : ''
+                                }`}
+                                />
+                            </button>
+                            ))}
+                        </div>
+                        </div>
 
-            <div className="comment-section">
-            <label className="section-label">Comment</label>
-            <textarea
-                className="comment-textarea"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                placeholder="Share your experience..."
-            />
-            </div>
+                        <div className="comment-section">
+                        <label className="section-label">Comment</label>
+                        <textarea
+                            className="comment-textarea"
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            placeholder="Share your experience..."
+                        />
+                        </div>
 
-            <button className="submit-btn" onClick={handleSubmit}>
-            Submit
-            </button>
-        </div>
+                        <button className="submit-btn" onClick={handleSubmit}>
+                        Submit
+                        </button>
+                    </div>
+                )}
+                
             </div>
             </div>
 );

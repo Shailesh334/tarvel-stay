@@ -10,8 +10,9 @@ const deletereview = async(req , res)=>{
             id : parseInt(reviewId)
         }
     })
-
-    if(review.userId != req.userId)return res.status(401).json({message : "Unauthorized user"});
+    console.log("review.userId" , review.userId)
+    
+    if(review.userId != req.userId)return res.status(401).json({ message : "Unauthorized user"});
 
     const deletedreview = await prisma.review.delete({
         where:{
