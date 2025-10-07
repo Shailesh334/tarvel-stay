@@ -22,7 +22,10 @@ router.post('/register' , async(req , res)=>{
         
         })
         const token = jwt.sign({id : user.id} , process.env.JWT_SECRET_KEY , {expiresIn: '24h'});
-        res.send({token});
+        res.json({
+            token : token ,
+            user : user
+        });
     }
     catch(err){
         res.json({message : err.message});
@@ -49,7 +52,10 @@ router.post("/login" , async(req , res)=>{
 
     // Then we have a successfull authentication
     const token = jwt.sign({id : user.id} , process.env.JWT_SECRET_KEY , {expiresIn: '24h'});
-    res.send({token});
+    res.json({
+            token : token ,
+            user : user
+    });
     
 })
 

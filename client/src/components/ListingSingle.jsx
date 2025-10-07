@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {   useNavigate, useParams } from "react-router-dom";
 import { MapPin, Star } from 'lucide-react';
 import ReviewCard from "./ReviewCard";
+import { AuthContext } from "../context/AuthContext";
 
 const ListingSingle = () => {
     const { listingId } = useParams();
-    const [listing, setlisting] = useState([]);
+    const [listing, setlisting] = useState({});
     const [reviews , setReviews] = useState([]);
     const [rating, setRating] = useState(0);
+    const [owner , setOwner] = useState({});
+
+    const { currUserId } = useContext(AuthContext);
 
     const [hoveredRating, setHoveredRating] = useState(0);
     const [comment, setComment] = useState('');
 
     const navigate = useNavigate();
-
+    
     const handleSubmit = async() => {
         if (rating === 0) {
         alert('Please select a rating');
@@ -26,7 +30,7 @@ const ListingSingle = () => {
         return;
         }
         console.log({ rating, comment });
-        alert('Review submitted successfully!');
+        
         const token = localStorage.getItem("token");
         try{
             const data = await fetch(`http://localhost:5000/${listingId}/reviews` , {
@@ -42,12 +46,16 @@ const ListingSingle = () => {
             })
             const response = await data.json();
             console.log(response);
+            if(response.message){
+                alert("User must be Logged in to add a review");
+                navigate('/login')
+            }
             if(response){
                 getReviews();
             }
         }
         catch(err){
-            console.log(err);
+            console.log(err)
         }
 
         setRating(0);
@@ -67,6 +75,13 @@ const ListingSingle = () => {
     
     };
 
+    const getOwner = async (userId) =>{
+        const data = await fetch(`http://localhost:5000/user/${userId}`)
+        const response = await data.json()
+
+        setOwner(response)
+    }
+
     const getReviews = async ()=>{
         try{
             const data = await fetch(`http://localhost:5000/${listingId}/reviews`)
@@ -82,10 +97,13 @@ const ListingSingle = () => {
     useEffect(() => {
         getSingleListing();
         getReviews();
-    }, []);
+        if(listing.userId){
+            getOwner(listing.userId)
+        }
+    }, [listing.userId]);
 
     if(listing == "")return;
-
+    console.log(currUserId , listing.userId , owner.id )
     return (
             <div className="detail-container">
             <img
@@ -93,7 +111,14 @@ const ListingSingle = () => {
                 alt={listing.title}
                 className="listing-image"
             />
-
+            { owner.id == currUserId &&  <>
+                <div className="edit-dlt">
+                    <button className="edit">Edit</button>
+                    <button className="dlt">Delete</button>
+                </div>
+            </>  }
+        
+            <p> owned by : {owner.username}</p>
             <div className="content-card">
                 <h1 className="listing-title">{listing.title}</h1>
 

@@ -6,6 +6,7 @@ import { useContext } from 'react';
 const SignUp = ({isloggedIn}) => {
     const [isLogin, setIsLogin] = useState(isloggedIn);
     const { login } = useContext(AuthContext);
+    const { saveCurrUser } = useContext(AuthContext);
 
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -32,7 +33,9 @@ const SignUp = ({isloggedIn}) => {
             const response = await data.json();
 
             if(response.token){
-                login(response.token)
+                login(response.token , response.user.id)
+                saveCurrUser(response.user.id);
+                console.log(response);
                 alert("Logged In Successfully !")
                 navigate("/")
             }
@@ -66,8 +69,10 @@ const SignUp = ({isloggedIn}) => {
             })
             const response = await data.json();
 
-             if(response.token){
-                login(response.token)
+            if(response.token){
+                login(response.token , response.user.id)
+                saveCurrUser(response.user.id)
+                console.log(response)
                 alert("Account created Successfully !")
                 navigate("/")
             }
