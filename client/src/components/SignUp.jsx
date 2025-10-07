@@ -17,7 +17,7 @@ const SignUp = ({isloggedIn}) => {
 
 
     const handleLogin = async()=>{
-       
+    
         try{
             const data = await fetch(`http://localhost:5000/auth/login`, {
                 method:"POST",
@@ -84,6 +84,8 @@ const SignUp = ({isloggedIn}) => {
             console.log(err);
         }
     }
+
+
     const handleChange = (e) => {
         setFormData({
         ...formData,
@@ -101,6 +103,7 @@ const SignUp = ({isloggedIn}) => {
             handleSignUp();
         }
     };
+    
     return (
             <div className="container">
                 <h1>{isLogin ? 'Log In' : 'Sign Up'}</h1>

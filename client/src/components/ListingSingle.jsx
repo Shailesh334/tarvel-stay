@@ -20,6 +20,14 @@ const ListingSingle = () => {
 
     const navigate = useNavigate();
     
+    const handleEdit = async () => {
+
+        navigate(`/edit/${listingId}`)
+        
+    }
+
+
+
     const handleSubmit = async() => {
         if (rating === 0) {
         alert('Please select a rating');
@@ -113,7 +121,7 @@ const ListingSingle = () => {
             />
             { owner.id == currUserId &&  <>
                 <div className="edit-dlt">
-                    <button className="edit">Edit</button>
+                    <button className="edit" onClick={handleEdit}>Edit</button>
                     <button className="dlt">Delete</button>
                 </div>
             </>  }
