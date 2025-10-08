@@ -6,7 +6,10 @@ async function main() {
   const listings = JSON.parse(fs.readFileSync("listings.json", "utf-8"));
   const reviews = JSON.parse(fs.readFileSync("reviews.json", "utf-8"));
 
-  // Insert users
+  /*|==================================================|
+      |              Insert User                        |
+      ==================================================|
+   */
   for (const user of users) {
     try {
       await prisma.user.create({
@@ -41,7 +44,7 @@ async function main() {
           tag: listing.tag,
           imageUrl: listing.imageUrl,
           userId: listing.userId,
-         
+        
         },
       });
     } catch (err) {
