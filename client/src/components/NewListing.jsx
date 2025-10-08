@@ -31,7 +31,30 @@ const NewListing = () => {
         'Tiny homes'
     ];
 
+    const [loading , setLoading] = useState(false);
+    const [imageUrl , setImageUrl] = useState(null);
+
+    const handleImage = async(event) =>{
+        const file = event.target.files[0];
+
+        if(!file)return
+        setLoading(true);
+
+        const data = new FormData();
+        data.append("file" , file)
+        data.append("upload_preset" , "stays_image_upload")
+        data.append("cloud_name" , "dvrrbqmuo")
+
+        const res = await fetch("https://api.cloudinary.com/v1_1/dvrrbqmuo/image/upload" , {
+            method : "POST",
+            body : data
+        })
+        const uploadImageUrl = await res.json();
+        setLoading(false);
+        setImageUrl(uploadImageUrl.secure_url)
+    }
     const handleChange = (e) => {
+        
         setFormData({
         ...formData,
         [e.target.name]: e.target.value
@@ -41,7 +64,7 @@ const NewListing = () => {
 
     const handleSubmit = async() => {
         console.log('Form submitted:', formData);
-        alert('Listing created successfully!');
+        
         const token = localStorage.getItem("token");
         const data = await fetch("http://localhost:5000/" , {
             method: "POST",
@@ -52,15 +75,23 @@ const NewListing = () => {
             body:JSON.stringify({
                 title : formData.title,
                 description : formData.description,
-                imageUrl : formData.imageUrl || "https://plus.unsplash.com/premium_photo-1759139844630-6450c6c01d73?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                imageUrl : imageUrl || "https://plus.unsplash.com/premium_photo-1759139844630-6450c6c01d73?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 country : formData.country,
                 price : parseInt(formData.price),
                 location : formData.location,
                 tag : formData.category,
             })
         })
+         if(data.status == 400){
+            alert("fill all the details")
+            return
+        }
         const response = await data.json();
-        if(response)navigate('/');
+       
+        if(response){
+            alert('Listing created successfully!');
+            navigate('/');
+        }
         
     };
     
@@ -71,9 +102,9 @@ const NewListing = () => {
         if (!isAuthenticated) {
         navigate("/login"); // redirect if not logged in
         }
-     }, [isAuthenticated, navigate]);   
+    }, [isAuthenticated, navigate]);   
 
-     if(!isAuthenticated)return null;
+    if(!isAuthenticated)return null;
     return (
             <div className="container">
                 <h1>Add New Listing</h1>
@@ -105,18 +136,28 @@ const NewListing = () => {
                     />
                 </div>
 
-                <div className="form-group">
-                    <label >Image Url</label>
-                    <input
-                    type="text"
-                    id="imageUrl"
-                    name="imageUrl"
-                    value={formData.imageUrl}
-                    onChange={handleChange}
-                    placeholder="https://images.unsplash.com/photo-1464822759023-..."
-                    required
-                    />
-                </div>
+            {
+                loading ? (
+                    <div className="loader-container">
+                        <div className="spinner"></div>
+                        <p>Uploading image...</p>
+                    </div>
+                ) : imageUrl ? (
+                    <div className="image-preview">
+                    <img src={imageUrl} alt="Preview" className="preview-img" />
+                    <button className="change-btn" onClick={() => setImageUrl(null)}>
+                        Change Image
+                    </button>
+                    </div>
+                ) : (
+                    <div className="form-group">
+                    <label>Upload Image</label>
+                    <input type="file" onChange={handleImage} required />
+                    </div>
+                )
+            }
+
+            
 
                 <div className="form-group">
                     <label htmlFor="price">Price (per night)</label>
