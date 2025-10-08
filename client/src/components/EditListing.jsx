@@ -3,6 +3,8 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { API_URL } from '../api.js';
 
 const EditListing = () => {
     const [formData, setFormData] = useState({
@@ -38,7 +40,7 @@ const EditListing = () => {
 
     const getSingleListing = async () => {
         try{
-            const data = await fetch(`http://localhost:5000/${listingId}`);
+            const data = await fetch(`${API_URL}/${listingId}`);
             const response = await data.json();
             if(!response) return (<h1>No Such Listing</h1>)
             setFormData({
@@ -57,7 +59,7 @@ const EditListing = () => {
     
     };
 
-       const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+        const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
         const uploadPreset = import.meta.env.VITE_UPLOAD_PRESET;
 
         console.log(cloudName , uploadPreset)
@@ -93,6 +95,7 @@ const EditListing = () => {
     };
     useEffect(() => {
         if (!isAuthenticated) {
+         toast.error("You must be logged in add listing !")
           navigate("/login"); // redirect if not logged in
         }
         getSingleListing();
@@ -101,7 +104,7 @@ const EditListing = () => {
     const handleSubmit = async() => {
         console.log('Form submitted:', formData);
         const token = localStorage.getItem("token");
-        const data = await fetch(`http://localhost:5000/${listingId}` , {
+        const data = await fetch(`${API_URL}/${listingId}` , {
             method: "PATCH",
             headers : {
                 "Content-Type" :"application/json",
@@ -118,7 +121,7 @@ const EditListing = () => {
             })
         })
         const response = await data.json();
-        alert("Listing updated successfully")
+        toast.success("Listing updated successfully")
         if(response)navigate(`/${listingId}`);
         
     };

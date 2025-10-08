@@ -28,8 +28,9 @@ router.post('/register' , async(req , res)=>{
         });
     }
     catch(err){
+        console.log(err)
           if (err.code === 'P2002') { // Prisma unique constraint error
-                res.status(400).json({ message: 'Enter Valid Username or Email' });
+                res.status(400).send(err);
             } else {
                 res.status(500).json({ message: 'Internal Server Error' });
     }

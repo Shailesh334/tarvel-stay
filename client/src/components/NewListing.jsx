@@ -4,6 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { API_URL } from '../api.js';
 
 const NewListing = () => {
 
@@ -72,7 +73,7 @@ const NewListing = () => {
             return;
         }
         const token = localStorage.getItem("token");
-        const data = await fetch("http://localhost:5000/" , {
+        const data = await fetch(`${API_URL}/` , {
             method: "POST",
             headers : {
                 "Content-Type" :"application/json",

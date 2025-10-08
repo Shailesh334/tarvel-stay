@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
+import { API_URL } from '../api';
 const ReviewCard = ({review ,listing ,  getReviews}) => {
 
   const [reviewer , setReviewer] = useState('');
@@ -13,7 +14,7 @@ const ReviewCard = ({review ,listing ,  getReviews}) => {
 
   const getReviewer = async ()=>{
         try{
-            const data = await fetch(`http://localhost:5000/user/${review.userId}`)
+            const data = await fetch(`${API_URL}/user/${review.userId}`)
             const response = await data.json();
             
             setReviewer(response)
@@ -26,7 +27,7 @@ const ReviewCard = ({review ,listing ,  getReviews}) => {
 
     const handleDelete = async () =>{
         const token = localStorage.getItem("token");
-        const data = await fetch(`http://localhost:5000/${listing.id}/reviews/${review.id}` , {
+        const data = await fetch(`${API_URL}/${listing.id}/reviews/${review.id}` , {
             method: "DELETE",
             headers : {
                 "Content-Type" :"application/json",

@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { useContext } from 'react';
 import toast from 'react-hot-toast';
+
+import {API_URL} from '../api.js';
+
+
 const SignUp = ({isloggedIn}) => {
     const [isLogin, setIsLogin] = useState(isloggedIn);
     const { login } = useContext(AuthContext);
@@ -25,7 +29,7 @@ const SignUp = ({isloggedIn}) => {
             return
         }
         try{
-            const data = await fetch(`http://localhost:5000/auth/login`, {
+            const data = await fetch(`${API_URL}/auth/login`, {
                 method:"POST",
                 headers :{
                     "Content-Type" : "application/json"
@@ -69,7 +73,7 @@ const SignUp = ({isloggedIn}) => {
         }
 
         try{
-            const data = await fetch(`http://localhost:5000/auth/register`, {
+            const data = await fetch(`${API_URL}/auth/register`, {
                 method:"POST",
                 headers :{
                     "Content-Type" : "application/json"
@@ -87,7 +91,7 @@ const SignUp = ({isloggedIn}) => {
                 login(response.token , response.user.id)
                 saveCurrUser(response.user.id)
                 console.log(response)
-                alert("Account created Successfully !")
+                toast.success("Account created Successfully !")
                 navigate("/")
             }
             else{

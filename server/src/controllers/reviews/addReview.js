@@ -5,7 +5,8 @@ const addReview = async(req , res)=>{
     const {rating ,   message  } = req.body;
     const {listingId} = req.params;
 
-    const review = await prisma.review.create({
+    try{
+        const review = await prisma.review.create({
         data : {
             rating , 
             message ,
@@ -15,6 +16,11 @@ const addReview = async(req , res)=>{
     })
 
     res.json(review);
+    }
+    catch(err){
+        res.status(400).json({ error: err.message });
+    }
+
 
 }
 

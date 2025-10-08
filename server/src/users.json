@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "username": "shailesh",
+    "email": "shailesh@gmail.com",
+    "password": "69"
+  },
+  {
+    "id": 3,
+    "username": "mangesh",
+    "email": "mangesh@gmail.com",
+    "password": "$2b$08$xu0ZcWFQFetfTF92ExntYeezjnZnJwYuMn66tEYfKXsWjTg0Q4sx6"
+  },
+  {
+    "id": 4,
+    "username": "mangeshh",
+    "email": "mangesh@gmail.com",
+    "password": "$2b$08$XaDN4pA4yIuba/TH4W/.auBF5jiD44dEprlhl4TxOf6JV0xVz7oKK"
+  },
+  {
+    "id": 5,
+    "username": "Gautam gambhir",
+    "email": "gambhir@mail.com",
+    "password": "$2b$08$.4rK69/It5cenEnU7VDE4eYjQQNFW96HMJzpy4kfUYySQmnXmNgKa"
+  },
+  {
+    "id": 6,
+    "username": "demo",
+    "email": "demo@gmail.com",
+    "password": "$2b$08$4RYENK.Q72yFaAFmsfwPI.WosEzC6h38KCbpVJl.Yyti1Re1WC6cC"
+  },
+  {
+    "id": 7,
+    "username": "y",
+    "email": "y@gmail.com",
+    "password": "$2b$08$RnhH12VjjbONB9lMZQso9Ow20sP.Akns02bp7B00k31nDu7yd2/Hy"
+  },
+  {
+    "id": 8,
+    "username": "shailesh_334",
+    "email": "shailesh",
+    "password": "$2b$08$ogvN.neYnZOW7ao6GAnx2uVHKjrqaeWRV/X3/i9EWmJSH7hue7qpO"
+  },
+  {
+    "id": 9,
+    "username": "demo2",
+    "email": "demo2@gmail",
+    "password": "$2b$08$gVIWGsccfdwP6R5cJxaYQ..50jRyuanIj5ePB.zkplbf/.NI3ycDG"
+  },
+  {
+    "id": 10,
+    "username": "pratik",
+    "email": "pratik@gmail.com",
+    "password": "$2b$08$T.Qx.79pm9Ox2p4IjtolnOsID.Ra0BRYKlg8NZjKapemS4/OF3jzi"
+  },
+  {
+    "id": 11,
+    "username": "demo4",
+    "email": "demo4",
+    "password": "$2b$08$PpcYcf1KFzNxTZGV6FM6Muizs0TY.LtGzHUF2Pw/xwc8jB3KpZWVW"
+  },
+  {
+    "id": 12,
+    "username": "demo3",
+    "email": "mangeshhhhh@gmail.com",
+    "password": "$2b$08$8I5YDBRHFeXwF2pZ5QSy5OO50B9FeskVJwGi0O8VxAwJNPwPH66ka"
+  }
+]

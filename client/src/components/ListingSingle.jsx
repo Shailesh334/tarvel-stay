@@ -6,6 +6,7 @@ import { MapPin, Star } from 'lucide-react';
 import ReviewCard from "./ReviewCard";
 import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
+import { API_URL } from "../api.js";
 
 const ListingSingle = () => {
     const { listingId } = useParams();
@@ -27,7 +28,7 @@ const ListingSingle = () => {
 
     const handleDelete = async () => {
         const token = localStorage.getItem("token");
-        const data = await fetch(`http://localhost:5000/${listingId}` , {
+        const data = await fetch(`${API_URL}/${listingId}` , {
             method: "DELETE",
             headers : {
                 "Content-Type" :"application/json",
@@ -35,7 +36,7 @@ const ListingSingle = () => {
             } 
         })
         const response = await data.json();
-        alert("Listing deleted successfully")
+        toast.success("Listing deleted successfully")
         if(response)navigate(`/`);  
     }
 
@@ -52,7 +53,7 @@ const ListingSingle = () => {
         
         const token = localStorage.getItem("token");
         try{
-            const data = await fetch(`http://localhost:5000/${listingId}/reviews` , {
+            const data = await fetch(`${API_URL}/${listingId}/reviews` , {
                 method : "POST",
                 headers : {
                     'Content-Type' : 'application/json',
@@ -88,7 +89,7 @@ const ListingSingle = () => {
 
     const getSingleListing = async () => {
         try{
-            const data = await fetch(`http://localhost:5000/${listingId}`);
+            const data = await fetch(`${API_URL}/${listingId}`);
             const response = await data.json();
             if(!response){
                 alert("No Such listing")
@@ -102,7 +103,7 @@ const ListingSingle = () => {
     };
 
     const getOwner = async (userId) =>{
-        const data = await fetch(`http://localhost:5000/user/${userId}`)
+        const data = await fetch(`${API_URL}/user/${userId}`)
         const response = await data.json()
 
         setOwner(response)
@@ -110,7 +111,7 @@ const ListingSingle = () => {
 
     const getReviews = async ()=>{
         try{
-            const data = await fetch(`http://localhost:5000/${listingId}/reviews`)
+            const data = await fetch(`${API_URL}/${listingId}/reviews`)
             const response = await data.json();
             
             setReviews(response)

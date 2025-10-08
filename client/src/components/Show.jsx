@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import ListingCard from './ListingCard';
 import { useState } from 'react';
 import { Flame, Building2, Snowflake, Mountain, Tractor, Home } from 'lucide-react';
+import { API_URL } from '../api.js';
 const Show = () => {
 
     const [listings , setListings] = useState([]);
@@ -23,7 +24,7 @@ const Show = () => {
     console.log(`Filter clicked: ${filterName}`);
   };
     const getData = async()=>{
-        const data = await fetch("http://localhost:5000/");
+        const data = await fetch(`${API_URL}/`);
         const res = await data.json();
         setListings(res);
     }
@@ -35,7 +36,7 @@ const Show = () => {
     return (
             <>
                 
-                <div id="filters">
+                {/* <div id="filters">
                     {filters.map((filter) => {
                         const IconComponent = filter.icon;
                         return (
@@ -57,28 +58,20 @@ const Show = () => {
                         </a>
                         );
                     })}
-                </div>
+                </div> */}
                 
-                {
-                    activeFilter  ? (
-                        <div className="content-section">
-                            <h2 className="content-title">
-                                {activeFilter ? `${activeFilter.charAt(0).toUpperCase() + activeFilter.slice(1)} Listings` : 'All Listings'}
-                            </h2>
-                            
-                    </div>
-                    ) :  <div className="main-container">
+                
+                    <div className="main-container">
 
                             {
                                 listings.map((listing) => ( <ListingCard key={listing.id} info={listing}/>))
                             }
                                 
-                        </div>
-                }
+                    </div>
                 
                 
-          
-           
+                
+
 
             </>
     
