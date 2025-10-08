@@ -5,6 +5,7 @@ import NewListing from "./components/NewListing";
 import SignUp from "./components/SignUp";
 import ListingSingle from "./components/ListingSingle";
 import EditListing from "./components/EditListing";
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
 
@@ -14,6 +15,7 @@ const App = () => {
   return (
     <>
         <Header />
+        <Toaster position="top-center" reverseOrder={false} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/:listingId" element={<ListingSingle  />} />

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 const ReviewCard = ({review ,listing ,  getReviews}) => {
 
   const [reviewer , setReviewer] = useState('');
@@ -33,7 +34,7 @@ const ReviewCard = ({review ,listing ,  getReviews}) => {
             } 
         })
         const response = await data.json();
-        alert("Review deleted successfully")
+        toast.success("Review deleted successfully" , {duration : 3000})
         if(response){
             getReviews();
         }

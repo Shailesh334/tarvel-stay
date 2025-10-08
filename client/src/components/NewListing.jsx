@@ -3,8 +3,10 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 const NewListing = () => {
+
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -63,8 +65,12 @@ const NewListing = () => {
     };
 
     const handleSubmit = async() => {
-        console.log('Form submitted:', formData);
         
+        const { title, description, country, price, location, category } = formData;
+        if (!title || !description || !country || !price || !location || !category) {
+            toast.error("Please fill all the details");
+            return;
+        }
         const token = localStorage.getItem("token");
         const data = await fetch("http://localhost:5000/" , {
             method: "POST",
@@ -82,14 +88,18 @@ const NewListing = () => {
                 tag : formData.category,
             })
         })
-         if(data.status == 400){
-            alert("fill all the details")
-            return
+
+
+
+
+        if(data.status == 400){
+            toast.error("Invalid request");
+            return;
         }
         const response = await data.json();
-       
+    
         if(response){
-            alert('Listing created successfully!');
+            toast.success("Listing created successfully!");
             navigate('/');
         }
         
@@ -100,6 +110,7 @@ const NewListing = () => {
 
     useEffect(() => {
         if (!isAuthenticated) {
+            toast.error("You must be logged in add listing !")
         navigate("/login"); // redirect if not logged in
         }
     }, [isAuthenticated, navigate]);   

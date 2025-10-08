@@ -28,7 +28,11 @@ router.post('/register' , async(req , res)=>{
         });
     }
     catch(err){
-        res.json({message : err.message});
+          if (err.code === 'P2002') { // Prisma unique constraint error
+                res.status(400).json({ message: 'Enter Valid Username or Email' });
+            } else {
+                res.status(500).json({ message: 'Internal Server Error' });
+    }
     }
 
 })
@@ -37,25 +41,35 @@ router.post('/register' , async(req , res)=>{
 router.post("/login" , async(req , res)=>{
     const {email , password} = req.body;
 
-    const user = await prisma.user.findUnique({
-        where : {
-            email : email
+        try{
+                    const user = await prisma.user.findUnique({
+                where : {
+                    email : email
+                }
+            })
+            
+            // if user doesnt exists return error
+                if(!user)return res.status(404).send({message : "User not found"})
+
+            const isPasswordValid = bcrypt.compareSync(password , user.password);
+
+            if(!isPasswordValid)return res.status(401).send({ message: "Invalid password" });
+
+            // Then we have a successfull authentication
+            const token = jwt.sign({id : user.id} , process.env.JWT_SECRET_KEY , {expiresIn: '24h'});
+            res.json({
+                    token : token ,
+                    user : user
+            });
+         }
+        catch(err){
+                if (err.code === 'P2002') { // Prisma unique constraint error
+                res.status(400).json({ message: 'Enter Valid Username or Email' });
+            } else {
+                res.status(500).json({ message: 'Internal Server Error' });
+            }
         }
-    })
-    
-      // if user doesnt exists return error
-        if(!user)return res.status(404).send({message : "User not found"})
-
-    const isPasswordValid = bcrypt.compareSync(password , user.password);
-
-    if(!isPasswordValid)return res.status(401).send({ message: "Invalid password" });
-
-    // Then we have a successfull authentication
-    const token = jwt.sign({id : user.id} , process.env.JWT_SECRET_KEY , {expiresIn: '24h'});
-    res.json({
-            token : token ,
-            user : user
-    });
+        
     
 })
 

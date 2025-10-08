@@ -5,6 +5,7 @@ import {   useNavigate, useParams } from "react-router-dom";
 import { MapPin, Star } from 'lucide-react';
 import ReviewCard from "./ReviewCard";
 import { AuthContext } from "../context/AuthContext";
+import toast from "react-hot-toast";
 
 const ListingSingle = () => {
     const { listingId } = useParams();
@@ -40,11 +41,11 @@ const ListingSingle = () => {
 
     const handleSubmit = async() => {
         if (rating === 0) {
-        alert('Please select a rating');
+        toast.error('Please select a rating');
         return;
         }
         if (comment.trim() === '') {
-        alert('Please enter a comment');
+        toast.error('Please enter a comment');
         return;
         }
         console.log({ rating, comment });
@@ -63,9 +64,9 @@ const ListingSingle = () => {
                 })
             })
             if (data.status === 401) {
-                alert("You must be logged in to perform this action");
+                toast.error("You must be logged in to perform this action");
                 navigate("/login");
-                return; // stop here
+                return; 
             }
             const response = await data.json();
         
@@ -73,6 +74,7 @@ const ListingSingle = () => {
         
             if(response){
                 getReviews();
+                toast.success("Review added successfully !")
             }
         }
         catch(err){

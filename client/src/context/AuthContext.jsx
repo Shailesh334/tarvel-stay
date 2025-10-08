@@ -1,4 +1,5 @@
 import { createContext , useState , useEffect } from "react";
+import toast from "react-hot-toast";
 
 
 
@@ -45,6 +46,7 @@ export const AuthProvider = ({children})=>{
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("currUserId");
+        toast.success("Logged Out successfully" , {duration :3000})
         setIsAuthenticated(false);
         setCurrUserId(null);
     };

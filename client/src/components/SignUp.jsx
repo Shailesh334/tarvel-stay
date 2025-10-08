@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { useContext } from 'react';
-
+import toast from 'react-hot-toast';
 const SignUp = ({isloggedIn}) => {
     const [isLogin, setIsLogin] = useState(isloggedIn);
     const { login } = useContext(AuthContext);
@@ -17,7 +17,13 @@ const SignUp = ({isloggedIn}) => {
 
 
     const handleLogin = async()=>{
-    
+        
+        const { email , password} = formData
+
+        if( email == '' || password == ''){
+            toast.error("Enter all the details" , {duration : 3000})
+            return
+        }
         try{
             const data = await fetch(`http://localhost:5000/auth/login`, {
                 method:"POST",
@@ -36,11 +42,12 @@ const SignUp = ({isloggedIn}) => {
                 login(response.token , response.user.id)
                 saveCurrUser(response.user.id);
                 console.log(response);
-                alert("Logged In Successfully !")
+                toast.success("Logged In Successfully !");
                 navigate("/")
             }
             else{
-                alert(response.message)
+
+                toast.error(response.message)
             }
             
   
@@ -54,6 +61,13 @@ const SignUp = ({isloggedIn}) => {
 
     const handleSignUp = async()=>{
         
+        const {username , email , password} = formData
+
+        if(username == '' || email == '' || password == ''){
+            toast.error("Enter all the details" , {duration : 3000})
+            return
+        }
+
         try{
             const data = await fetch(`http://localhost:5000/auth/register`, {
                 method:"POST",
@@ -77,7 +91,8 @@ const SignUp = ({isloggedIn}) => {
                 navigate("/")
             }
             else{
-                alert(response.message)
+                
+                toast.error(response.message)
             }
         }
         catch(err){
