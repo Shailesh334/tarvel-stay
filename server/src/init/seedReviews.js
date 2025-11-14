@@ -16,8 +16,8 @@ import prisma from "../prismaClient.js";
 async function main() {
     const reviews = [];
 
-    for (let listingId = 30; listingId <= 58; listingId++) {
-            const userId = Math.random() < 0.5 ? 3 : 5;
+    for (let listingId = 59; listingId <= 87; listingId++) {
+            const userId = Math.random() < 0.5 ? 1 : 2;
             const rating = Math.floor(Math.random() * 5) + 1;
             const message = messages[Math.floor(Math.random() * messages.length)];
 
@@ -36,11 +36,11 @@ async function main() {
     console.log(`✅ Inserted ${reviews.length} fake reviews successfully!`);
 }
 
-    // main()
-    // .catch((e) => {
-    //     console.error(e);
-    //     process.exit(1);
-    // })
-    // .finally(async () => {
-    //     await prisma.$disconnect();
-    // });
+    main()
+    .catch((e) => {
+        console.error(e);
+        process.exit(1);
+    })
+    .finally(async () => {
+        await prisma.$disconnect();
+    });

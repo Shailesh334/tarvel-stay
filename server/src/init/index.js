@@ -5,24 +5,11 @@ import prisma from '../prismaClient.js';
 
 import initData from './data.js'
 // import mongoose from 'mongoose';
-// import { Listing } from '../schema.js';
+import { Listing } from '../schema.js';
 
 const app = express();
 
-// main()
-//     .then(()=>{
-//         console.log("connected to DB");
-//     })
-//     .catch(err =>{
-//         console.log(err);
-//     });
 
-
-
-// async function main(){
-//         await mongoose.connect('mongodb://127.0.0.1:27017/travelstay')
-//         // await intialize_data()
-// };
 
 let arr = [ "trending" , "topcities" ,"artic" ,"mountains" ,"countryside" ,"farms" ,"beach" ];
 
@@ -65,15 +52,15 @@ const initialize_data = async()=>{
    
 }
 
-initialize_data();
+// await initialize_data();
 
 
 // await prisma.user.create({
 //     data : {
-//         username : "shailesh",
-//         password: "69",
-//         email : "shailesh@gmail.com",
-//         id : 1
+//         username : "mangesh",
+//         password: "31",
+//         email : "mangesh@gmail.com",
+        
 //     }
 // });
 
