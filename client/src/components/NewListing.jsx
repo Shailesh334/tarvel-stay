@@ -40,7 +40,7 @@ const NewListing = () => {
     const handleImage = async(event) =>{
         const file = event.target.files[0];
 
-        if(!file)return
+        if(!file)return;
         setLoading(true);
 
         const data = new FormData();

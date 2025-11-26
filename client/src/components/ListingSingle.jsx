@@ -10,7 +10,7 @@ import { API_URL } from "../api.js";
 
 const ListingSingle = () => {
     const { listingId } = useParams();
-    const [listing, setlisting] = useState({});
+    const [listing, setlisting] = useState(null);
     const [reviews , setReviews] = useState([]);
     const [rating, setRating] = useState(0);
     const [owner , setOwner] = useState({});
@@ -129,7 +129,8 @@ const ListingSingle = () => {
         }
     }, [listing.userId]);
 
-    if(listing == "")return;
+    if (listing == null) return;
+
     console.log(currUserId , listing.userId , owner.id )
     return (
             <div className="detail-container">
