@@ -13,7 +13,7 @@ const ListingSingle = () => {
     const [listing, setlisting] = useState(null);
     const [reviews , setReviews] = useState([]);
     const [rating, setRating] = useState(0);
-    const [owner , setOwner] = useState({});
+    const [owner , setOwner] = useState(null);
 
     const { currUserId } = useContext(AuthContext);
 
@@ -91,10 +91,12 @@ const ListingSingle = () => {
         try{
             const data = await fetch(`${API_URL}/${listingId}`);
             const response = await data.json();
+            console.log("response" , response)
             if(!response){
                 alert("No Such listing")
                 navigate('/')
             }
+           
             setlisting(response);
         }catch(err){
             console.log(err);
@@ -124,14 +126,21 @@ const ListingSingle = () => {
     useEffect(() => {
         getSingleListing();
         getReviews();
-        if(listing.userId){
+         if (listing == null){
+            console.log("I am gay")
+            return
+        }
+        if(listing?.userId){
             getOwner(listing.userId)
         }
-    }, [listing.userId]);
+    }, [listing?.userId]);
+   
+    if (listing == null || owner == null){
+        console.log("I am gay")
+        return
+    }
 
-    if (listing == null) return;
-
-    console.log(currUserId , listing.userId , owner.id )
+    
     return (
             <div className="detail-container">
             <img
